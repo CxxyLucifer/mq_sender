@@ -11,15 +11,12 @@ import org.springframework.stereotype.Component;
  * Description:
  * Date: 9:57 AM 2018/11/9
  */
-@Component
+//@Component
 public class MessageReceive {
 
     @JmsListener(destination = topics.COMMON_TEST_TOPIC)
-    @SendTo(topics.COMMON_TEST_OUT_TOPIC)
-    public String receiveQueue(String text) {
+    public void receiveQueue(String text) {
 
         System.out.println(DateUtil.getCurrentDateString("yyyy-MM-dd HH:mm:ss") + ",收到的消息:" + text);
-
-        return text;
     }
 }

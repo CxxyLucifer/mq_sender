@@ -16,7 +16,7 @@ public class MqApplicationTests {
 	private MessageSender messageSender;
 
 	@Test
-	public void contextLoads() throws Exception{
+	public void sendMessage() throws Exception{
 		messageSender.sendMessage(topics.COMMON_TEST_TOPIC,"{'name':'jack','age':28}");
 	}
 
