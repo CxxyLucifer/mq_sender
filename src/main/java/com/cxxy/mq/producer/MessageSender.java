@@ -1,7 +1,9 @@
 package com.cxxy.mq.producer;
 
 import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 import org.springframework.jms.core.JmsMessagingTemplate;
 
@@ -23,7 +25,17 @@ public class MessageSender {
      * @param name 目的地名称
      * @param msg  消息体
      */
-    public void sendMessage(String name, String msg) throws Exception{
+    public void sendMessage2Topic(String name, String msg) throws MessagingException {
+        jmsMessagingTemplate.convertAndSend(new ActiveMQTopic(name), msg);
+    }
+
+    /**
+     * mq发送消息
+     *
+     * @param name 目的地名称
+     * @param msg  消息体
+     */
+    public void sendMessage2Queue(String name, String msg) throws MessagingException{
         jmsMessagingTemplate.convertAndSend(new ActiveMQQueue(name), msg);
     }
 }
