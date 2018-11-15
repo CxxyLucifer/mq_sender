@@ -6,16 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +23,7 @@ import java.util.Map;
  * Date: 10:08 AM 2018/11/14
  */
 @Slf4j
-@Controller
+@RestController
 public class WebSocketController {
 
     @Autowired
@@ -43,7 +42,8 @@ public class WebSocketController {
     }
 
     @MessageMapping("/msg")
-    public void receiveMsg(HashMap contentMap) {
+    @SendTo("/websocket/msg")
+    public String receiveMsg(HashMap contentMap) {
         Iterator<Map.Entry> iterator = contentMap.entrySet().iterator();
 
         while (iterator.hasNext()) {
@@ -51,5 +51,7 @@ public class WebSocketController {
 
             log.info("============ " + entry.getKey() + ":" + entry.getValue());
         }
+        return contentMap.get("conf_value").toString();
+
     }
 }
