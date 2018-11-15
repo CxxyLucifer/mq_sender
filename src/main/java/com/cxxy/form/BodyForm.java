@@ -1,9 +1,11 @@
 package com.cxxy.form;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * Author:liuhui
@@ -11,7 +13,10 @@ import java.io.Serializable;
  * Date: 5:50 PM 2018/11/14
  */
 @Data
-public class BodyForm implements Serializable{
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class BodyForm {
 
     private Object body;
 }

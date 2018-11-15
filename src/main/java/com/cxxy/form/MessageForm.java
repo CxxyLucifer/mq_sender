@@ -1,9 +1,9 @@
 package com.cxxy.form;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 /**
  * Author:liuhui
@@ -11,8 +11,10 @@ import java.io.Serializable;
  * Date: 9:18 AM 2018/11/14
  */
 @Data
-public class MessageForm implements Serializable{
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class MessageForm {
 
-    @NotBlank(message = "内容不能为空")
     private String body;
 }
