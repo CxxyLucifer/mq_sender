@@ -42,14 +42,13 @@ public class WebSocketController {
     }
 
     @MessageMapping("/msg")
-    @SendTo("/websocket/msg")
     public String receiveMsg(HashMap contentMap) {
         Iterator<Map.Entry> iterator = contentMap.entrySet().iterator();
 
         while (iterator.hasNext()) {
             Map.Entry entry = iterator.next();
 
-            log.info("============ " + entry.getKey() + ":" + entry.getValue());
+            log.info("============ 收到客户端消息: " + entry.getKey() + ":" + entry.getValue());
         }
         return contentMap.get("conf_value").toString();
 
