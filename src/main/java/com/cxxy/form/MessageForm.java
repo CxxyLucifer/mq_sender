@@ -16,5 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MessageForm {
 
+    private String id;
+
     private String body;
 }

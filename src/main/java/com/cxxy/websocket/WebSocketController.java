@@ -21,6 +21,9 @@ import java.util.Map;
  * Author:liuhui
  * Description:
  * Date: 10:08 AM 2018/11/14
+ *
+ * @MessageMapping 标识客户端发来消息的请求地址
+ *
  */
 @Slf4j
 @RestController
@@ -33,7 +36,7 @@ public class WebSocketController {
     public Object send(@RequestBody @Valid MessageForm form) {
         try {
             log.info(" ============= body:" + form.getBody());
-            simpMessagingTemplate.convertAndSend("/websocket/msg", form.getBody());
+            simpMessagingTemplate.convertAndSendToUser(form.getId(),"/websocket/msg", form.getBody());
             return BaseController.ok();
         } catch (MessagingException e) {
             log.error(form.toString() + " => " + e.getMessage(), e);
@@ -42,7 +45,7 @@ public class WebSocketController {
     }
 
     @MessageMapping("/msg")
-    public String receiveMsg(HashMap contentMap) {
+    public void receiveMsg(HashMap contentMap) {
         Iterator<Map.Entry> iterator = contentMap.entrySet().iterator();
 
         while (iterator.hasNext()) {
@@ -50,7 +53,6 @@ public class WebSocketController {
 
             log.info("============ 收到客户端消息: " + entry.getKey() + ":" + entry.getValue());
         }
-        return contentMap.get("conf_value").toString();
 
     }
 }
