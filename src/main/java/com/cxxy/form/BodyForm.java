@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 
 /**
  * Author:liuhui
@@ -12,10 +14,11 @@ import lombok.NoArgsConstructor;
  * Date: 5:50 PM 2018/11/14
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class BodyForm {
 
-    private Object body;
+    @NotBlank(message = "body不能为空")
+    private String body;
 }

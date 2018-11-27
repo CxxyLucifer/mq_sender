@@ -13,7 +13,7 @@ import java.security.Principal;
  */
 @Data
 @Builder
-public class MyPrincipal implements Principal{
+public class WebSocketPrincipal implements Principal{
 
     private String name;
 }
