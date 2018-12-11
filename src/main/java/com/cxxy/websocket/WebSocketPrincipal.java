@@ -1,8 +1,10 @@
 package com.cxxy.websocket;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.security.Principal;
 
@@ -13,7 +15,14 @@ import java.security.Principal;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WebSocketPrincipal implements Principal{
 
-    private String name;
+    private String userId;
+
+    @Override
+    public String getName() {
+        return this.userId;
+    }
 }

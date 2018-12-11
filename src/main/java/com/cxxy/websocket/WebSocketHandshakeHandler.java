@@ -42,7 +42,7 @@ public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
 
             return WebSocketPrincipal
                     .builder()
-                    .name(id.getValue())
+                    .userId(id.getValue())
                     .build();
         } else {
             return null;

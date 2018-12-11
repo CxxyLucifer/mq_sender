@@ -1,6 +1,7 @@
 package com.cxxy.websocket;
 
 import com.cxxy.controller.BaseController;
+import com.cxxy.form.BodyForm;
 import com.cxxy.form.MessageForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,23 @@ public class WebSocketController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @RequestMapping("/websocket/message/send")
-    public Object send(@RequestBody @Valid MessageForm form) {
+    @RequestMapping("/websocket/message/sendToUser")
+    public Object sendToUser(@RequestBody @Valid MessageForm form) {
         try {
-            log.info(" ============= body:" + form.getBody());
+            log.info(" ============= body:" + form.toString());
             simpMessagingTemplate.convertAndSendToUser(form.getId(),"/websocket/msg", form.getBody());
+            return BaseController.ok();
+        } catch (MessagingException e) {
+            log.error(form.toString() + " => " + e.getMessage(), e);
+            return BaseController.fail();
+        }
+    }
+
+
+    @RequestMapping("/websocket/message/send")
+    public Object send(@RequestBody @Valid BodyForm form) {
+        try {
+            simpMessagingTemplate.convertAndSend("/websocket/msg", form.getBody());
             return BaseController.ok();
         } catch (MessagingException e) {
             log.error(form.toString() + " => " + e.getMessage(), e);
