@@ -24,7 +24,6 @@ import java.util.Map;
  * Date: 10:08 AM 2018/11/14
  *
  * @MessageMapping 标识客户端发来消息的请求地址
- *
  */
 @Slf4j
 @RestController
@@ -37,7 +36,7 @@ public class WebSocketController {
     public Object sendToUser(@RequestBody @Valid MessageForm form) {
         try {
             log.info(" ============= body:" + form.toString());
-            simpMessagingTemplate.convertAndSendToUser(form.getId(),"/websocket/msg", form.getBody());
+            simpMessagingTemplate.convertAndSendToUser(form.getId(), WebSocketMsg.destination, form.getBody());
             return BaseController.ok();
         } catch (MessagingException e) {
             log.error(form.toString() + " => " + e.getMessage(), e);
@@ -49,7 +48,7 @@ public class WebSocketController {
     @RequestMapping("/websocket/message/send")
     public Object send(@RequestBody @Valid BodyForm form) {
         try {
-            simpMessagingTemplate.convertAndSend("/websocket/msg", form.getBody());
+            simpMessagingTemplate.convertAndSend(WebSocketMsg.destination, form.getBody());
             return BaseController.ok();
         } catch (MessagingException e) {
             log.error(form.toString() + " => " + e.getMessage(), e);
