@@ -35,7 +35,6 @@ public class WebSocketController {
     @RequestMapping("/websocket/message/sendToUser")
     public Object sendToUser(@RequestBody @Valid MessageForm form) {
         try {
-            log.info(" ============= body:" + form.toString());
             simpMessagingTemplate.convertAndSendToUser(form.getId(), WebSocketMsg.destination, form.getBody());
             return BaseController.ok();
         } catch (MessagingException e) {
